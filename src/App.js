@@ -1,3 +1,10 @@
 import React from 'react';
+import Userinfo from './components/userInfo';
 
-export const App = () => <div>hello world!!!</div>;
+export const App = () => {
+  return (
+    <div>
+      <Userinfo />
+    </div>
+  );
+};
