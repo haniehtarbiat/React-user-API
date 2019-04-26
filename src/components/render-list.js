@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const listStyle = {
   display: 'inline-block',
@@ -22,4 +23,12 @@ const List = props => {
     </ul>
   );
 };
+List.propTypes = {
+  info: PropTypes.arrayOf(String),
+};
+
+List.defaultProps = {
+  info: '',
+};
+
 export default List;

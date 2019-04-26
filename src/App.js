@@ -1,10 +1,11 @@
 import React from 'react';
 import Userinfo from './components/userInfo';
 
-export const App = () => {
+const App = () => {
   return (
     <div>
       <Userinfo />
     </div>
   );
 };
+export default App;
