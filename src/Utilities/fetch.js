@@ -1,6 +1,5 @@
-const Fetch = () => {
-  const pageNumber = 1;
-  const pageSize = 10;
+const Fetch = (pageNumber) => {
+  const pageSize= 10;
   return fetch(
     `http://5cbc116dfa84180014bdb224.mockapi.io/users?page=${pageNumber} &limit= ${pageSize}`,
   )
