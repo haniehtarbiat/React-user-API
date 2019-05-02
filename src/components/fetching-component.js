@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import queryString from 'query-string';
+import PropTypes from 'prop-types';
 import Fetch from '../Utilities/fetch';
 import List from './render-list';
 import WithLoading from './handle-loading';
 import Pagination from "../common/pagination";
+
 
 const ListWithLoading = WithLoading(List);
 
@@ -15,15 +18,22 @@ class FetchinUserInfo extends Component {
       error: false,
       itemsCount: 50,
       pageSize: 10,
-      currentPage: 1,
-    };
+      currentPage: this.getPage()
+    }
     this.handlePageChange = this.handlePageChange.bind(this);
     this.getData = this.getData.bind(this);
+    this.getPage = this.getPage.bind(this);
   }
 
   componentDidMount() {
     const {currentPage}=this.state;
       this.getData(currentPage);
+  }
+
+  getPage(){
+    const {search} =this.props.location;
+    const queryParams = queryString.parse(search);
+    return(queryParams.page);
   }
 
   getData(page){
@@ -36,6 +46,7 @@ class FetchinUserInfo extends Component {
 
   handlePageChange(page) {
       this.getData(page);
+      this.props.location.search=`?page=${page}`;
   }
 
   render() {
@@ -60,5 +71,13 @@ class FetchinUserInfo extends Component {
     );
   }
 }
+FetchinUserInfo.propTypes= {
+  search: PropTypes.string,
+  location: PropTypes.string,
+}
+FetchinUserInfo.defaultProps = {
+  search: '1',
+  location:'',
+};
 
 export default FetchinUserInfo;

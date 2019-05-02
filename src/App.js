@@ -1,11 +1,16 @@
 import React from 'react';
-import Userinfo from './components/userInfo';
+import { Route} from 'react-router-dom';
+import FetchinUserInfo from './components/fetching-component';
 
-const App = () => {
-  return (
-    <div>
-      <Userinfo />
-    </div>
-  );
-};
+
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+          <Route exact path="/" component={FetchinUserInfo} />
+      </div>
+    );
+  }
+}
+
 export default App;
