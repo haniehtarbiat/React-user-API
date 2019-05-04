@@ -24,7 +24,7 @@ const List = props => {
   );
 };
 List.propTypes = {
-  info: PropTypes.arrayOf(String),
+  info:PropTypes.oneOfType([ PropTypes.arrayOf(PropTypes.string), PropTypes.number,null]),
 };
 
 List.defaultProps = {

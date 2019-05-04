@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
+import Pagination from "react-js-pagination";
 import Fetch from '../Utilities/fetch';
 import List from './render-list';
 import WithLoading from './handle-loading';
-import Pagination from "../common/pagination";
 
+require("bootstrap-less/bootstrap/bootstrap.less");
 
 const ListWithLoading = WithLoading(List);
 
@@ -13,12 +14,10 @@ class FetchinUserInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      info: null,
+      info:null,
       isLoading: false,
       error: false,
-      itemsCount: 50,
-      pageSize: 10,
-      currentPage: this.getPage()
+      activePage: this.getPage(),
     }
     this.handlePageChange = this.handlePageChange.bind(this);
     this.getData = this.getData.bind(this);
@@ -26,8 +25,11 @@ class FetchinUserInfo extends Component {
   }
 
   componentDidMount() {
-    const {currentPage}=this.state;
-      this.getData(currentPage);
+    const {activePage}=this.state;
+    if (activePage===undefined)
+    this.getData(1);
+    else
+    this.getData(activePage);
   }
 
   getPage(){
@@ -45,8 +47,10 @@ class FetchinUserInfo extends Component {
   }
 
   handlePageChange(page) {
+    this.setState({activePage: page});
       this.getData(page);
       this.props.location.search=`?page=${page}`;
+      this.props.history.push(`?page=${page}`);
   }
 
   render() {
@@ -54,18 +58,17 @@ class FetchinUserInfo extends Component {
       isLoading,
       error,
       info,
-      itemsCount,
-      pageSize,
-      currentPage,
+      activePage,
     } = this.state;
     return (
       <div>
         <ListWithLoading isLoading={isLoading} info={info} error={error} />
         <Pagination
-          itemsCount={itemsCount}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          onPageChange={this.handlePageChange}
+          activePage={activePage}
+          itemsCountPerPage={10}
+          totalItemsCount={50}
+          pageRangeDisplayed={10}
+          onChange={this.handlePageChange}
         />
       </div>
     );
@@ -73,7 +76,7 @@ class FetchinUserInfo extends Component {
 }
 FetchinUserInfo.propTypes= {
   search: PropTypes.string,
-  location: PropTypes.string,
+  location: PropTypes.objectOf(PropTypes.string),
 }
 FetchinUserInfo.defaultProps = {
   search: '1',
