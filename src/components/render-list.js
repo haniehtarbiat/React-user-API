@@ -30,15 +30,15 @@ const List = props => {
   );
 };
 List.propTypes = {
-  info: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.string),
-    PropTypes.number,
-
-  ]),
-};
+  info: PropTypes.arrayOf(PropTypes.shape({
+    id:PropTypes.string,
+    createdAt: PropTypes.string,
+    avatar:PropTypes.string,
+  }))
+}
 
 List.defaultProps = {
-  info: '',
+  info: [],
 };
 
 export default List;
