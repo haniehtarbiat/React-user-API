@@ -16,15 +16,25 @@ const List = props => {
       {info.map(item => (
         <li style={listStyle} key={item.id}>
           <img alt="profile pic" src={item.avatar} />
-          <p className="name">name:{item.name}</p>
-          <p className="createdTime">create time:{item.createdAt}</p>
+          <p className="name">
+            name:
+            {item.name}
+          </p>
+          <p className="createdTime">
+            create time:
+            {item.createdAt}
+          </p>
         </li>
       ))}
     </ul>
   );
 };
 List.propTypes = {
-  info:PropTypes.oneOfType([ PropTypes.arrayOf(PropTypes.string), PropTypes.number,null]),
+  info: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.string),
+    PropTypes.number,
+
+  ]),
 };
 
 List.defaultProps = {

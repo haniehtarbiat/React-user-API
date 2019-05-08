@@ -6,7 +6,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-          <Route path="/" component={FetchinUserInfo} />
+        <Route path="/" component={FetchinUserInfo} />
       </div>
     );
   }

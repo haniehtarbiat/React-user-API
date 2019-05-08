@@ -33,7 +33,7 @@ class FetchinUserInfo extends Component {
   }
 
   getPage(){
-    const {search} =this.props.location;
+    const {location: {search}} =this.props;
     const queryParams = queryString.parse(search);
     return(queryParams.page);
   }
@@ -49,8 +49,9 @@ class FetchinUserInfo extends Component {
   handlePageChange(page) {
     this.setState({activePage: page});
       this.getData(page);
-      this.props.location.search=`?page=${page}`;
-      this.props.history.push(`?page=${page}`);
+      const {location, history}= this.props;
+      location.search=`?page=${page}`;
+      history.push(`?page=${page}`);
   }
 
   render() {
@@ -75,12 +76,13 @@ class FetchinUserInfo extends Component {
   }
 }
 FetchinUserInfo.propTypes= {
-  search: PropTypes.string,
   location: PropTypes.objectOf(PropTypes.string),
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired,
 }
 FetchinUserInfo.defaultProps = {
-  search: '1',
   location:'',
-};
+}
 
 export default FetchinUserInfo;
